@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Meu Presente ❤️</title>
 
 <style>
@@ -15,15 +15,15 @@ body {
   justify-content:center;
   align-items:center;
   color:white;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* ===== CAIXA ===== */
 .presente-container { perspective:1400px; }
 
 .caixa {
-  width:260px;
-  height:260px;
+  width:240px;
+  height:240px;
   position:relative;
   transform-style:preserve-3d;
   cursor:pointer;
@@ -33,15 +33,11 @@ body {
 .base {
   position:absolute;
   inset:0;
-  background:
-    linear-gradient(145deg,#b31332,#7a0d1f);
+  background:linear-gradient(145deg,#b31332,#7a0d1f);
   border-radius:18px;
-  box-shadow:
-    inset 0 0 25px rgba(255,255,255,.15),
-    0 45px 90px rgba(0,0,0,.9);
+  box-shadow:inset 0 0 25px rgba(255,255,255,.15), 0 45px 90px rgba(0,0,0,.9);
 }
 
-/* DETALHE FRONTAL */
 .base::before {
   content:"";
   position:absolute;
@@ -54,11 +50,10 @@ body {
 .tampa {
   position:absolute;
   inset:0;
-  background:
-    linear-gradient(145deg,#e51f47,#a1132c);
+  background:linear-gradient(145deg,#e51f47,#a1132c);
   border-radius:18px;
   transform-origin:top;
-  transition:transform 2.4s cubic-bezier(.19,1,.22,1);
+  transition:transform 2.3s cubic-bezier(.19,1,.22,1);
   box-shadow:0 35px 70px rgba(0,0,0,.8);
 }
 
@@ -68,25 +63,12 @@ body {
   background:linear-gradient(145deg,#ffd6e0,#ff9bb4);
   box-shadow: inset 0 0 10px rgba(255,255,255,.7);
 }
+.fita-v { width:26px; height:100%; left:50%; transform:translateX(-50%); }
+.fita-h { height:26px; width:100%; top:50%; transform:translateY(-50%); }
 
-.fita-v {
-  width:26px;
-  height:100%;
-  left:50%;
-  transform:translateX(-50%);
-}
-
-.fita-h {
-  height:26px;
-  width:100%;
-  top:50%;
-  transform:translateY(-50%);
-}
-
-/* TEXTO */
 .texto {
   position:absolute;
-  bottom:-50px;
+  bottom:-48px;
   width:100%;
   text-align:center;
   opacity:.9;
@@ -96,37 +78,41 @@ body {
 .conteudo {
   display:none;
   text-align:center;
-  padding:20px;
-  animation:fade 1.5s ease forwards;
+  padding:18px;
+  animation:fade 1.4s ease forwards;
 }
 
-h1 { margin-bottom:8px; }
-p { margin-bottom:20px; }
+h1 { margin-bottom:6px; font-size:1.8rem; }
+p { margin-bottom:18px; }
 
-/* CARROSSEL */
+/* ===== CARROSSEL ===== */
 .carrossel {
   display:flex;
-  gap:20px;
+  gap:18px;
   overflow-x:auto;
-  padding:20px;
+  padding:16px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
 .carrossel img {
-  height:320px;
+  height:300px;
   border-radius:18px;
-  transition:transform .6s ease;
+  scroll-snap-align:center;
+  transition:transform .5s ease;
   box-shadow:0 20px 40px rgba(0,0,0,.7);
+  cursor:pointer;
 }
 
 .carrossel img:hover {
-  transform:scale(1.18);
+  transform:scale(1.15);
 }
 
-/* BOTÃO */
+/* ===== BOTÃO ===== */
 .botao {
-  margin:25px auto;
-  padding:15px 32px;
-  font-size:1.2rem;
+  margin:22px auto;
+  padding:14px 30px;
+  font-size:1.15rem;
   border:none;
   border-radius:50px;
   background:linear-gradient(145deg,#ff5f8f,#d81b60);
@@ -134,18 +120,43 @@ p { margin-bottom:20px; }
   cursor:pointer;
 }
 
-/* VIDEO */
+/* ===== VIDEO ===== */
 video {
   display:none;
-  width:90%;
-  max-width:600px;
-  margin:20px auto;
+  width:100%;
+  max-width:560px;
+  margin:18px auto;
   border-radius:20px;
   box-shadow:0 25px 60px rgba(0,0,0,.8);
 }
 
+/* ===== MODAL IMAGEM ===== */
+.modal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.95);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:10;
+}
+
+.modal img {
+  max-width:95%;
+  max-height:90%;
+  border-radius:18px;
+}
+
+.fechar {
+  position:absolute;
+  top:20px;
+  right:20px;
+  font-size:2rem;
+  cursor:pointer;
+}
+
 @keyframes fade {
-  from { opacity:0; transform:translateY(30px); }
+  from { opacity:0; transform:translateY(25px); }
   to { opacity:1; transform:translateY(0); }
 }
 </style>
@@ -173,11 +184,11 @@ video {
   <p>Você é a coisinha mais linda do mundo.</p>
 
   <div class="carrossel">
-    <img src="img1.JPG">
-    <img src="img2.JPG">
-    <img src="img3.JPG">
-    <img src="img4.JPG">
-    <img src="img5.JPG">
+    <img src="img1.JPG" onclick="abrirImagem(this)">
+    <img src="img2.JPG" onclick="abrirImagem(this)">
+    <img src="img3.JPG" onclick="abrirImagem(this)">
+    <img src="img4.JPG" onclick="abrirImagem(this)">
+    <img src="img5.JPG" onclick="abrirImagem(this)">
   </div>
 
   <button class="botao" onclick="mostrarVideo()">Eu te amo ➜</button>
@@ -187,6 +198,11 @@ video {
   </video>
 </div>
 
+<div class="modal" id="modal">
+  <span class="fechar" onclick="fecharImagem()">✕</span>
+  <img id="imgModal">
+</div>
+
 <script>
 const presente = document.getElementById("presente");
 const tampa = document.getElementById("tampa");
@@ -194,9 +210,8 @@ const conteudo = document.getElementById("conteudo");
 const musica = document.getElementById("musica");
 
 presente.addEventListener("click", () => {
-  musica.play(); // TOCA NO CLIQUE (iPhone OK)
+  musica.play();
   tampa.style.transform = "rotateX(-110deg)";
-
   setTimeout(() => {
     presente.style.display = "none";
     conteudo.style.display = "block";
@@ -207,6 +222,15 @@ function mostrarVideo() {
   const video = document.getElementById("video");
   video.style.display = "block";
   video.play();
+}
+
+function abrirImagem(img) {
+  document.getElementById("modal").style.display = "flex";
+  document.getElementById("imgModal").src = img.src;
+}
+
+function fecharImagem() {
+  document.getElementById("modal").style.display = "none";
 }
 </script>
 
