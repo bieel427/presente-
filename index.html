@@ -3,113 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Um presente pra você ❤️</title>
+<title>Meu presente pra você ❤️</title>
 
 <style>
 body {
     margin: 0;
-    background: linear-gradient(135deg, #f7c1cc, #ffe6eb);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     font-family: Arial, sans-serif;
-}
-
-.presente {
-    width: 270px;
-    height: 220px;
-    cursor: pointer;
-    position: relative;
-}
-
-.caixa {
-    width: 100%;
-    height: 100%;
-    background: #e63946;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-}
-
-.tampa {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 60px;
-    background: #c9182b;
-    border-radius: 12px 12px 0 0;
-    transform-origin: top;
-    transition: transform 1s ease;
-    z-index: 5;
-}
-
-.laco-v {
-    position: absolute;
-    width: 26px;
-    height: 100%;
-    background: #ffd166;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.laco-h {
-    position: absolute;
-    height: 26px;
-    width: 100%;
-    background: #ffd166;
-    top: 42%;
-}
-
-.conteudo {
-    position: absolute;
-    inset: 0;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 1s ease;
-    padding: 10px;
+    background: linear-gradient(135deg, #ffafbd, #ffc3a0);
     text-align: center;
 }
 
+/* PRESENTE */
+.presente {
+    width: 180px;
+    height: 180px;
+    margin: 80px auto 20px;
+    background: #e63946;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+}
+
+.presente::before {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 180px;
+    background: white;
+    left: 75px;
+}
+
+.presente::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 30px;
+    background: white;
+    top: 75px;
+}
+
+.presente p {
+    color: white;
+    font-weight: bold;
+    margin-top: 200px;
+}
+
+/* CONTEÚDO */
+.conteudo {
+    display: none;
+    padding: 20px;
+}
+
+/* CARROSSEL */
 .carrossel {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    width: 100%;
+    gap: 12px;
 }
 
 .carrossel img {
-    width: 100%;
-    scroll-snap-align: center;
+    width: 85vw;
+    max-width: 400px;
+    height: 500px;
+    object-fit: cover;
     border-radius: 15px;
-    margin-right: 5px;
+    scroll-snap-align: center;
 }
 
-.conteudo p {
-    margin-top: 8px;
-    color: #e63946;
+/* TEXTO */
+.mensagem {
+    margin: 20px 0;
+    font-size: 18px;
+    color: #5a0c0c;
     font-weight: bold;
-    font-size: 15px;
 }
 
-.presente.aberto .tampa {
-    transform: rotateX(-130deg);
+/* BOTÃO */
+.botao-video {
+    padding: 12px 20px;
+    font-size: 16px;
+    background: #e63946;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
 }
 
-.presente.aberto .conteudo {
-    opacity: 1;
-}
-
-/* VIDEO MODAL */
+/* MODAL DO VÍDEO */
 .video-modal {
+    display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.8);
-    display: none;
+    background: rgba(0,0,0,0.85);
     justify-content: center;
     align-items: center;
     z-index: 10;
@@ -118,84 +104,4 @@ body {
 .video-modal video {
     width: 90%;
     max-width: 400px;
-    border-radius: 12px;
-}
-
-.video-modal span {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-}
-</style>
-</head>
-
-<body>
-
-<div class="presente" id="presente">
-    <div class="tampa"></div>
-
-    <div class="caixa">
-        <div class="laco-v"></div>
-        <div class="laco-h"></div>
-
-        <div class="conteudo">
-            <div class="carrossel">
-                <img src="img1.jpg">
-                <img src="img2.jpg">
-                <img src="img3.jpg">
-                <img src="img4.jpg">
-                <img src="img5.jpg">
-            </div>
-            <p>
-                Eu te amo, meu amor 💖<br>
-                você é a coisinha mais linda do mundo
-            </p>
-            <small>(arrasta pra baixo ⬇️)</small>
-        </div>
-    </div>
-</div>
-
-<div class="video-modal" id="videoModal">
-    <span onclick="fecharVideo()">✖</span>
-    <video src="video.MOV" controls autoplay></video>
-</div>
-
-<audio id="musica" src="amor.mp3" loop></audio>
-
-<script>
-let aberto = false;
-let startY = 0;
-
-const presente = document.getElementById("presente");
-const musica = document.getElementById("musica");
-const modal = document.getElementById("videoModal");
-
-presente.addEventListener("click", () => {
-    if (!aberto) {
-        presente.classList.add("aberto");
-        musica.play();
-        aberto = true;
-    }
-});
-
-presente.addEventListener("touchstart", e => {
-    startY = e.touches[0].clientY;
-});
-
-presente.addEventListener("touchend", e => {
-    let endY = e.changedTouches[0].clientY;
-    if (aberto && endY - startY > 80) {
-        modal.style.display = "flex";
-    }
-});
-
-function fecharVideo() {
-    modal.style.display = "none";
-}
-</script>
-
-</body>
-</html>
+   
