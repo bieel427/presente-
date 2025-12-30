@@ -2,162 +2,198 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Meu Presente ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presente ❤️</title>
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-  background: radial-gradient(circle at top, #2b0f17, #12060a);
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:white;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* ===== CAIXA ===== */
-.presente-container { perspective:1400px; }
+/* ================= BODY ================= */
+body {
+  background: radial-gradient(circle at top, #2b0f17, #12060a);
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* ================= PRESENTE ================= */
+.presente-container {
+  perspective: 1600px;
+}
 
 .caixa {
-  width:240px;
-  height:240px;
-  position:relative;
-  transform-style:preserve-3d;
-  cursor:pointer;
+  width: 280px;
+  height: 280px;
+  position: relative;
+  transform-style: preserve-3d;
+  cursor: pointer;
 }
 
 /* BASE */
 .base {
-  position:absolute;
-  inset:0;
-  background:linear-gradient(145deg,#b31332,#7a0d1f);
-  border-radius:18px;
-  box-shadow:inset 0 0 25px rgba(255,255,255,.15), 0 45px 90px rgba(0,0,0,.9);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, #b31332, #6f0b1c);
+  border-radius: 20px;
+  box-shadow:
+    inset 0 0 30px rgba(255,255,255,0.15),
+    0 60px 120px rgba(0,0,0,0.9);
 }
 
+/* BORDA FRONTAL */
 .base::before {
-  content:"";
-  position:absolute;
-  inset:12px;
-  border-radius:14px;
-  border:2px solid rgba(255,255,255,.25);
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
 }
 
 /* TAMPA */
 .tampa {
-  position:absolute;
-  inset:0;
-  background:linear-gradient(145deg,#e51f47,#a1132c);
-  border-radius:18px;
-  transform-origin:top;
-  transition:transform 2.3s cubic-bezier(.19,1,.22,1);
-  box-shadow:0 35px 70px rgba(0,0,0,.8);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, #e51f47, #9c1429);
+  border-radius: 20px;
+  transform-origin: top;
+  transition: transform 2.8s cubic-bezier(.19,1,.22,1);
+  box-shadow: 0 45px 90px rgba(0,0,0,0.85);
 }
 
-/* FITA */
+/* FITAS */
 .fita-v, .fita-h {
-  position:absolute;
-  background:linear-gradient(145deg,#ffd6e0,#ff9bb4);
-  box-shadow: inset 0 0 10px rgba(255,255,255,.7);
+  position: absolute;
+  background: linear-gradient(145deg, #ffd6e0, #ff9bb4);
+  box-shadow: inset 0 0 12px rgba(255,255,255,0.8);
 }
-.fita-v { width:26px; height:100%; left:50%; transform:translateX(-50%); }
-.fita-h { height:26px; width:100%; top:50%; transform:translateY(-50%); }
 
+.fita-v {
+  width: 28px;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.fita-h {
+  height: 28px;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* TEXTO */
 .texto {
-  position:absolute;
-  bottom:-48px;
-  width:100%;
-  text-align:center;
-  opacity:.9;
+  position: absolute;
+  bottom: -55px;
+  width: 100%;
+  text-align: center;
+  opacity: 0.9;
 }
 
-/* ===== CONTEÚDO ===== */
+/* ================= CONTEÚDO ================= */
 .conteudo {
-  display:none;
-  text-align:center;
-  padding:18px;
-  animation:fade 1.4s ease forwards;
+  display: none;
+  width: 100%;
+  max-width: 1100px;
+  padding: 30px;
+  text-align: center;
+  animation: fadeIn 1.8s ease forwards;
 }
 
-h1 { margin-bottom:6px; font-size:1.8rem; }
-p { margin-bottom:18px; }
+h1 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
 
-/* ===== CARROSSEL ===== */
+p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+/* ================= CARROSSEL ================= */
+.carrossel-container {
+  position: relative;
+  width: 100%;
+  margin: 30px auto;
+  overflow: hidden;
+}
+
 .carrossel {
-  display:flex;
-  gap:18px;
-  overflow-x:auto;
-  padding:16px;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling: touch;
+  display: flex;
+  gap: 30px;
+  transition: transform 0.6s ease;
 }
 
 .carrossel img {
-  height:300px;
-  border-radius:18px;
-  scroll-snap-align:center;
-  transition:transform .5s ease;
-  box-shadow:0 20px 40px rgba(0,0,0,.7);
-  cursor:pointer;
+  height: 420px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+  transition: transform 0.6s ease;
 }
 
-.carrossel img:hover {
-  transform:scale(1.15);
+/* ZOOM DA IMAGEM ATIVA */
+.carrossel img.ativa {
+  transform: scale(1.15);
 }
 
-/* ===== BOTÃO ===== */
+/* SETAS */
+.seta {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: white;
+  font-size: 2.5rem;
+  padding: 10px 18px;
+  cursor: pointer;
+  z-index: 5;
+  border-radius: 50%;
+}
+
+.seta:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.seta.esq { left: 10px; }
+.seta.dir { right: 10px; }
+
+/* ================= BOTÃO ================= */
 .botao {
-  margin:22px auto;
-  padding:14px 30px;
-  font-size:1.15rem;
-  border:none;
-  border-radius:50px;
-  background:linear-gradient(145deg,#ff5f8f,#d81b60);
-  color:white;
-  cursor:pointer;
+  margin: 30px auto;
+  padding: 16px 36px;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(145deg, #ff5f8f, #d81b60);
+  color: white;
+  cursor: pointer;
 }
 
-/* ===== VIDEO ===== */
+/* ================= VIDEO ================= */
 video {
-  display:none;
-  width:100%;
-  max-width:560px;
-  margin:18px auto;
-  border-radius:20px;
-  box-shadow:0 25px 60px rgba(0,0,0,.8);
+  display: none;
+  width: 80%;
+  max-width: 720px;
+  margin: 30px auto;
+  border-radius: 22px;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.85);
 }
 
-/* ===== MODAL IMAGEM ===== */
-.modal {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.95);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:10;
-}
-
-.modal img {
-  max-width:95%;
-  max-height:90%;
-  border-radius:18px;
-}
-
-.fechar {
-  position:absolute;
-  top:20px;
-  right:20px;
-  font-size:2rem;
-  cursor:pointer;
-}
-
-@keyframes fade {
-  from { opacity:0; transform:translateY(25px); }
-  to { opacity:1; transform:translateY(0); }
+/* ================= ANIMAÇÃO ================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
@@ -168,6 +204,7 @@ video {
   <source src="amor.mp3" type="audio/mpeg">
 </audio>
 
+<!-- PRESENTE -->
 <div class="presente-container" id="presente">
   <div class="caixa">
     <div class="tampa" id="tampa">
@@ -176,19 +213,24 @@ video {
     </div>
     <div class="base"></div>
   </div>
-  <div class="texto">Toque para abrir 🎁</div>
+  <div class="texto">Clique para abrir 🎁</div>
 </div>
 
+<!-- CONTEÚDO -->
 <div class="conteudo" id="conteudo">
   <h1>Eu te amo ❤️</h1>
   <p>Você é a coisinha mais linda do mundo.</p>
 
-  <div class="carrossel">
-    <img src="img1.JPG" onclick="abrirImagem(this)">
-    <img src="img2.JPG" onclick="abrirImagem(this)">
-    <img src="img3.JPG" onclick="abrirImagem(this)">
-    <img src="img4.JPG" onclick="abrirImagem(this)">
-    <img src="img5.JPG" onclick="abrirImagem(this)">
+  <div class="carrossel-container">
+    <button class="seta esq" onclick="anterior()">‹</button>
+    <div class="carrossel" id="carrossel">
+      <img src="img1.JPG">
+      <img src="img2.JPG">
+      <img src="img3.JPG">
+      <img src="img4.JPG">
+      <img src="img5.JPG">
+    </div>
+    <button class="seta dir" onclick="proximo()">›</button>
   </div>
 
   <button class="botao" onclick="mostrarVideo()">Eu te amo ➜</button>
@@ -198,39 +240,49 @@ video {
   </video>
 </div>
 
-<div class="modal" id="modal">
-  <span class="fechar" onclick="fecharImagem()">✕</span>
-  <img id="imgModal">
-</div>
-
 <script>
 const presente = document.getElementById("presente");
 const tampa = document.getElementById("tampa");
 const conteudo = document.getElementById("conteudo");
 const musica = document.getElementById("musica");
+const carrossel = document.getElementById("carrossel");
+const imagens = carrossel.querySelectorAll("img");
+
+let indice = 0;
+
+function atualizarCarrossel() {
+  imagens.forEach(img => img.classList.remove("ativa"));
+  imagens[indice].classList.add("ativa");
+
+  const deslocamento = imagens[indice].offsetLeft - (carrossel.parentElement.offsetWidth / 2) + (imagens[indice].offsetWidth / 2);
+  carrossel.style.transform = `translateX(${-deslocamento}px)`;
+}
+
+function proximo() {
+  if (indice < imagens.length - 1) indice++;
+  atualizarCarrossel();
+}
+
+function anterior() {
+  if (indice > 0) indice--;
+  atualizarCarrossel();
+}
 
 presente.addEventListener("click", () => {
   musica.play();
-  tampa.style.transform = "rotateX(-110deg)";
+  tampa.style.transform = "rotateX(-115deg)";
+
   setTimeout(() => {
     presente.style.display = "none";
     conteudo.style.display = "block";
-  }, 2300);
+    atualizarCarrossel();
+  }, 2800);
 });
 
 function mostrarVideo() {
   const video = document.getElementById("video");
   video.style.display = "block";
   video.play();
-}
-
-function abrirImagem(img) {
-  document.getElementById("modal").style.display = "flex";
-  document.getElementById("imgModal").src = img.src;
-}
-
-function fecharImagem() {
-  document.getElementById("modal").style.display = "none";
 }
 </script>
 
