@@ -3,99 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meu presente pra você ❤️</title>
+<title>Um presente pra você ❤️</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ffafbd, #ffc3a0);
-    text-align: center;
+* {
+    box-sizing: border-box;
 }
 
-/* PRESENTE */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(160deg, #ff9a9e, #fad0c4);
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* 🎁 PRESENTE */
 .presente {
-    width: 180px;
-    height: 180px;
-    margin: 80px auto 20px;
+    width: 200px;
+    height: 200px;
+    margin: 90px auto 30px;
     background: #e63946;
-    border-radius: 12px;
+    border-radius: 18px;
     position: relative;
     cursor: pointer;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    animation: pulse 2s infinite;
 }
 
 .presente::before {
     content: "";
     position: absolute;
-    width: 30px;
-    height: 180px;
+    width: 35px;
+    height: 200px;
     background: white;
-    left: 75px;
+    left: 82px;
+    border-radius: 10px;
 }
 
 .presente::after {
     content: "";
     position: absolute;
-    width: 180px;
-    height: 30px;
+    width: 200px;
+    height: 35px;
     background: white;
-    top: 75px;
+    top: 82px;
+    border-radius: 10px;
 }
 
-.presente p {
+.presente span {
+    position: absolute;
+    bottom: -40px;
+    width: 100%;
     color: white;
     font-weight: bold;
-    margin-top: 200px;
 }
 
-/* CONTEÚDO */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* 📦 CONTEÚDO */
 .conteudo {
     display: none;
+    padding: 20px 10px 40px;
+}
+
+/* 🖼️ CARROSSEL */
+.carrossel {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     padding: 20px;
 }
 
-/* CARROSSEL */
-.carrossel {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 12px;
+.carrossel::-webkit-scrollbar {
+    display: none;
 }
 
 .carrossel img {
-    width: 85vw;
-    max-width: 400px;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 15px;
     scroll-snap-align: center;
+    width: 75vw;
+    max-width: 420px;
+    height: 520px;
+    object-fit: cover;
+    border-radius: 22px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* TEXTO */
+/* FOTO EM DESTAQUE */
+.carrossel img.ativa {
+    transform: scale(1.08);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.35);
+}
+
+/* 💌 TEXTO */
 .mensagem {
-    margin: 20px 0;
-    font-size: 18px;
-    color: #5a0c0c;
+    margin: 25px 15px;
+    font-size: 20px;
+    color: #6a040f;
     font-weight: bold;
+    line-height: 1.4;
 }
 
-/* BOTÃO */
+/* ❤️ BOTÃO */
 .botao-video {
-    padding: 12px 20px;
-    font-size: 16px;
+    margin-top: 10px;
+    padding: 14px 26px;
+    font-size: 18px;
     background: #e63946;
     color: white;
     border: none;
-    border-radius: 25px;
+    border-radius: 30px;
     cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    transition: transform 0.2s ease;
 }
 
-/* MODAL DO VÍDEO */
+.botao-video:active {
+    transform: scale(0.95);
+}
+
+/* 🎬 MODAL DO VÍDEO */
 .video-modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.88);
     justify-content: center;
     align-items: center;
     z-index: 10;
@@ -103,5 +141,96 @@ body {
 
 .video-modal video {
     width: 90%;
-    max-width: 400px;
-   
+    max-width: 420px;
+    border-radius: 18px;
+}
+
+.video-modal span {
+    position: absolute;
+    top: 20px;
+    right: 22px;
+    font-size: 32px;
+    color: white;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MÚSICA -->
+<audio id="musica" autoplay loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🎁 PRESENTE -->
+<div class="presente" onclick="abrirPresente()">
+    <span>Toque para abrir 🎁</span>
+</div>
+
+<!-- 📦 CONTEÚDO -->
+<div class="conteudo" id="conteudo">
+    <div class="carrossel" id="carrossel">
+        <img src="img1.jpg">
+        <img src="img2.jpg">
+        <img src="img3.jpg">
+        <img src="img4.jpg">
+        <img src="img5.jpg">
+    </div>
+
+    <div class="mensagem">
+        Eu te amo, meu amor ❤️<br>
+        você é a coisinha mais linda do mundo
+    </div>
+
+    <button class="botao-video" onclick="abrirVideo()">
+        Eu te amo 💖
+    </button>
+</div>
+
+<!-- 🎬 VÍDEO -->
+<div class="video-modal" id="videoModal">
+    <span onclick="fecharVideo()">✖</span>
+    <video src="video.MOV" controls></video>
+</div>
+
+<script>
+function abrirPresente() {
+    document.querySelector(".presente").style.display = "none";
+    document.getElementById("conteudo").style.display = "block";
+    document.getElementById("musica").play();
+    ativarCarrossel();
+}
+
+/* FOTO ATIVA NO CARROSSEL */
+function ativarCarrossel() {
+    const imagens = document.querySelectorAll(".carrossel img");
+    imagens[0].classList.add("ativa");
+
+    document.getElementById("carrossel").addEventListener("scroll", () => {
+        let centro = window.innerWidth / 2;
+
+        imagens.forEach(img => {
+            const rect = img.getBoundingClientRect();
+            const imgCentro = rect.left + rect.width / 2;
+
+            if (Math.abs(centro - imgCentro) < 100) {
+                img.classList.add("ativa");
+            } else {
+                img.classList.remove("ativa");
+            }
+        });
+    });
+}
+
+function abrirVideo() {
+    document.getElementById("videoModal").style.display = "flex";
+}
+
+function fecharVideo() {
+    document.getElementById("videoModal").style.display = "none";
+}
+</script>
+
+</body>
+</html>
