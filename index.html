@@ -6,69 +6,83 @@
 <title>Um presente pra você ❤️</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(160deg, #ff9a9e, #fad0c4);
+    font-family: Arial, sans-serif;
+    background: linear-gradient(160deg, #ffb6c1, #ffe4e1);
     text-align: center;
-    overflow-x: hidden;
 }
 
 /* 🎁 PRESENTE */
+.presente-wrapper {
+    margin-top: 100px;
+}
+
 .presente {
-    width: 200px;
-    height: 200px;
-    margin: 90px auto 30px;
-    background: #e63946;
-    border-radius: 18px;
+    width: 220px;
+    height: 160px;
+    margin: auto;
     position: relative;
     cursor: pointer;
+}
+
+.caixa {
+    width: 220px;
+    height: 140px;
+    background: #e63946;
+    border-radius: 0 0 20px 20px;
+    position: absolute;
+    bottom: 0;
     box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-    animation: pulse 2s infinite;
 }
 
-.presente::before {
-    content: "";
+.tampa {
+    width: 240px;
+    height: 50px;
+    background: #d62828;
     position: absolute;
-    width: 35px;
-    height: 200px;
+    top: 0;
+    left: -10px;
+    border-radius: 20px;
+    transition: transform 0.8s ease;
+    transform-origin: bottom;
+}
+
+.laco-vertical {
+    width: 30px;
+    height: 140px;
     background: white;
-    left: 82px;
+    position: absolute;
+    left: 95px;
+    bottom: 0;
     border-radius: 10px;
 }
 
-.presente::after {
-    content: "";
-    position: absolute;
-    width: 200px;
-    height: 35px;
+.laco-horizontal {
+    width: 220px;
+    height: 30px;
     background: white;
-    top: 82px;
+    position: absolute;
+    bottom: 55px;
     border-radius: 10px;
 }
 
-.presente span {
-    position: absolute;
-    bottom: -40px;
-    width: 100%;
-    color: white;
+.presente:hover .tampa {
+    transform: rotate(-20deg) translateY(-30px);
+}
+
+.texto-presente {
+    margin-top: 30px;
+    color: #6a040f;
     font-weight: bold;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
 }
 
 /* 📦 CONTEÚDO */
 .conteudo {
     display: none;
-    padding: 20px 10px 40px;
+    padding: 20px;
 }
 
 /* 🖼️ CARROSSEL */
@@ -80,60 +94,48 @@ body {
     padding: 20px;
 }
 
-.carrossel::-webkit-scrollbar {
-    display: none;
-}
+.carrossel::-webkit-scrollbar { display: none; }
 
 .carrossel img {
-    scroll-snap-align: center;
-    width: 75vw;
+    width: 80vw;
     max-width: 420px;
     height: 520px;
     object-fit: cover;
-    border-radius: 22px;
-    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border-radius: 25px;
+    scroll-snap-align: center;
+    transition: transform 0.4s ease;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
 }
 
-/* FOTO EM DESTAQUE */
 .carrossel img.ativa {
-    transform: scale(1.08);
-    box-shadow: 0 18px 35px rgba(0,0,0,0.35);
+    transform: scale(1.1);
 }
 
 /* 💌 TEXTO */
 .mensagem {
-    margin: 25px 15px;
+    margin: 25px 10px;
     font-size: 20px;
-    color: #6a040f;
     font-weight: bold;
-    line-height: 1.4;
+    color: #6a040f;
 }
 
 /* ❤️ BOTÃO */
 .botao-video {
-    margin-top: 10px;
-    padding: 14px 26px;
+    padding: 14px 28px;
     font-size: 18px;
     background: #e63946;
     color: white;
     border: none;
     border-radius: 30px;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    transition: transform 0.2s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
-.botao-video:active {
-    transform: scale(0.95);
-}
-
-/* 🎬 MODAL DO VÍDEO */
+/* 🎬 VÍDEO */
 .video-modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.88);
+    background: rgba(0,0,0,0.85);
     justify-content: center;
     align-items: center;
     z-index: 10;
@@ -148,8 +150,8 @@ body {
 .video-modal span {
     position: absolute;
     top: 20px;
-    right: 22px;
-    font-size: 32px;
+    right: 25px;
+    font-size: 30px;
     color: white;
     cursor: pointer;
 }
@@ -158,17 +160,20 @@ body {
 
 <body>
 
-<!-- 🎵 MÚSICA -->
 <audio id="musica" autoplay loop>
     <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
-<!-- 🎁 PRESENTE -->
-<div class="presente" onclick="abrirPresente()">
-    <span>Toque para abrir 🎁</span>
+<div class="presente-wrapper" onclick="abrirPresente()">
+    <div class="presente">
+        <div class="tampa"></div>
+        <div class="caixa"></div>
+        <div class="laco-vertical"></div>
+        <div class="laco-horizontal"></div>
+    </div>
+    <div class="texto-presente">Toque para abrir 🎁</div>
 </div>
 
-<!-- 📦 CONTEÚDO -->
 <div class="conteudo" id="conteudo">
     <div class="carrossel" id="carrossel">
         <img src="img1.jpg">
@@ -183,12 +188,9 @@ body {
         você é a coisinha mais linda do mundo
     </div>
 
-    <button class="botao-video" onclick="abrirVideo()">
-        Eu te amo 💖
-    </button>
+    <button class="botao-video" onclick="abrirVideo()">Eu te amo 💖</button>
 </div>
 
-<!-- 🎬 VÍDEO -->
 <div class="video-modal" id="videoModal">
     <span onclick="fecharVideo()">✖</span>
     <video src="video.MOV" controls></video>
@@ -196,29 +198,22 @@ body {
 
 <script>
 function abrirPresente() {
-    document.querySelector(".presente").style.display = "none";
+    document.querySelector(".presente-wrapper").style.display = "none";
     document.getElementById("conteudo").style.display = "block";
     document.getElementById("musica").play();
     ativarCarrossel();
 }
 
-/* FOTO ATIVA NO CARROSSEL */
 function ativarCarrossel() {
-    const imagens = document.querySelectorAll(".carrossel img");
-    imagens[0].classList.add("ativa");
+    const imgs = document.querySelectorAll(".carrossel img");
+    imgs[0].classList.add("ativa");
 
     document.getElementById("carrossel").addEventListener("scroll", () => {
-        let centro = window.innerWidth / 2;
-
-        imagens.forEach(img => {
-            const rect = img.getBoundingClientRect();
-            const imgCentro = rect.left + rect.width / 2;
-
-            if (Math.abs(centro - imgCentro) < 100) {
-                img.classList.add("ativa");
-            } else {
-                img.classList.remove("ativa");
-            }
+        const centro = window.innerWidth / 2;
+        imgs.forEach(img => {
+            const r = img.getBoundingClientRect();
+            const imgCentro = r.left + r.width / 2;
+            img.classList.toggle("ativa", Math.abs(centro - imgCentro) < 120);
         });
     });
 }
