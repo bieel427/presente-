@@ -217,3 +217,95 @@ video {
   <button class="botao-musica" onclick="ativarMusica()">🎵 Ativar música</button>
 
   <audio id="musica" loop>
+    <source src="amor.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="presente-container" id="presente">
+    <div class="caixa">
+      <div class="tampa" id="tampa">
+        <div class="fita-v"></div>
+        <div class="fita-h"></div>
+      </div>
+      <div class="base"></div>
+    </div>
+    <p>Clique no presente 🎁</p>
+  </div>
+
+  <div class="conteudo" id="conteudo">
+    <h2>Eu te amo ❤️</h2>
+    <p>Você é a coisinha mais linda do mundo.</p>
+
+    <div class="carrossel-container">
+      <button class="seta esq" onclick="anterior()">‹</button>
+      <div class="carrossel" id="carrossel">
+        <img src="img1.JPG">
+        <img src="img2.JPG">
+        <img src="img3.JPG">
+        <img src="img4.JPG">
+        <img src="img5.JPG">
+      </div>
+      <button class="seta dir" onclick="proximo()">›</button>
+    </div>
+
+    <button class="botao" onclick="mostrarVideo()">Eu te amo ➜</button>
+
+    <video id="video" controls>
+      <source src="video.MOV">
+    </video>
+  </div>
+
+</div>
+
+<script>
+const musica = document.getElementById("musica");
+const presente = document.getElementById("presente");
+const tampa = document.getElementById("tampa");
+const conteudo = document.getElementById("conteudo");
+const carrossel = document.getElementById("carrossel");
+const imagens = carrossel.querySelectorAll("img");
+
+let indice = 0;
+
+function ativarMusica() {
+  musica.play();
+}
+
+function atualizarCarrossel() {
+  imagens.forEach(img => img.classList.remove("ativa"));
+  imagens[indice].classList.add("ativa");
+
+  const deslocamento = imagens[indice].offsetLeft
+    - (carrossel.parentElement.offsetWidth / 2)
+    + (imagens[indice].offsetWidth / 2);
+
+  carrossel.style.transform = `translateX(${-deslocamento}px)`;
+}
+
+function proximo() {
+  if (indice < imagens.length - 1) indice++;
+  atualizarCarrossel();
+}
+
+function anterior() {
+  if (indice > 0) indice--;
+  atualizarCarrossel();
+}
+
+presente.addEventListener("click", () => {
+  tampa.style.transform = "rotateX(-115deg)";
+  setTimeout(() => {
+    presente.style.display = "none";
+    conteudo.style.display = "block";
+    atualizarCarrossel();
+  }, 2800);
+});
+
+function mostrarVideo() {
+  const video = document.getElementById("video");
+  video.style.display = "block";
+  video.play();
+}
+</script>
+
+</body>
+</html>
