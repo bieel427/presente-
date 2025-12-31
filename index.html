@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Presente ❤️</title>
+<title>Feliz Aniversário ❤️</title>
 
 <style>
-/* ================= RESET ================= */
+/* ========== RESET ========== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ================= BODY ================= */
+/* ========== BODY ========== */
 body {
   background: radial-gradient(circle at top, #2b0f17, #12060a);
   min-height: 100vh;
@@ -22,34 +22,66 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
 }
 
-/* ================= PRESENTE ================= */
+/* ========== CONTAINER GERAL ========== */
+.pagina {
+  width: 100%;
+  max-width: 1200px;
+  text-align: center;
+  padding: 30px;
+}
+
+/* ========== TÍTULO ========== */
+.titulo {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-shadow: 0 0 15px rgba(255, 80, 120, 0.6);
+}
+
+.subtitulo {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+/* ========== BOTÃO MÚSICA ========== */
+.botao-musica {
+  padding: 14px 28px;
+  font-size: 1.2rem;
+  border-radius: 40px;
+  border: none;
+  background: linear-gradient(145deg, #ff5f8f, #d81b60);
+  color: white;
+  cursor: pointer;
+  margin-bottom: 40px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+}
+
+/* ========== PRESENTE ========== */
 .presente-container {
   perspective: 1600px;
+  margin-bottom: 60px;
 }
 
 .caixa {
   width: 280px;
   height: 280px;
+  margin: auto;
   position: relative;
   transform-style: preserve-3d;
   cursor: pointer;
 }
 
-/* BASE */
 .base {
   position: absolute;
   inset: 0;
   background: linear-gradient(145deg, #b31332, #6f0b1c);
   border-radius: 20px;
-  box-shadow:
-    inset 0 0 30px rgba(255,255,255,0.15),
-    0 60px 120px rgba(0,0,0,0.9);
+  box-shadow: inset 0 0 30px rgba(255,255,255,0.15),
+              0 60px 120px rgba(0,0,0,0.9);
 }
 
-/* BORDA FRONTAL */
 .base::before {
   content: "";
   position: absolute;
@@ -58,7 +90,6 @@ body {
   border: 2px solid rgba(255,255,255,0.3);
 }
 
-/* TAMPA */
 .tampa {
   position: absolute;
   inset: 0;
@@ -69,7 +100,6 @@ body {
   box-shadow: 0 45px 90px rgba(0,0,0,0.85);
 }
 
-/* FITAS */
 .fita-v, .fita-h {
   position: absolute;
   background: linear-gradient(145deg, #ffd6e0, #ff9bb4);
@@ -90,27 +120,14 @@ body {
   transform: translateY(-50%);
 }
 
-/* TEXTO */
-.texto {
-  position: absolute;
-  bottom: -55px;
-  width: 100%;
-  text-align: center;
-  opacity: 0.9;
-}
-
-/* ================= CONTEÚDO ================= */
+/* ========== CONTEÚDO ========== */
 .conteudo {
   display: none;
-  width: 100%;
-  max-width: 1100px;
-  padding: 30px;
-  text-align: center;
-  animation: fadeIn 1.8s ease forwards;
+  animation: fadeIn 1.5s ease forwards;
 }
 
-h1 {
-  font-size: 2.4rem;
+h2 {
+  font-size: 2.2rem;
   margin-bottom: 10px;
 }
 
@@ -119,7 +136,7 @@ p {
   margin-bottom: 25px;
 }
 
-/* ================= CARROSSEL ================= */
+/* ========== CARROSSEL ========== */
 .carrossel-container {
   position: relative;
   width: 100%;
@@ -141,12 +158,10 @@ p {
   transition: transform 0.6s ease;
 }
 
-/* ZOOM DA IMAGEM ATIVA */
 .carrossel img.ativa {
   transform: scale(1.15);
 }
 
-/* SETAS */
 .seta {
   position: absolute;
   top: 50%;
@@ -157,18 +172,13 @@ p {
   font-size: 2.5rem;
   padding: 10px 18px;
   cursor: pointer;
-  z-index: 5;
   border-radius: 50%;
-}
-
-.seta:hover {
-  background: rgba(255,255,255,0.2);
 }
 
 .seta.esq { left: 10px; }
 .seta.dir { right: 10px; }
 
-/* ================= BOTÃO ================= */
+/* ========== BOTÃO VIDEO ========== */
 .botao {
   margin: 30px auto;
   padding: 16px 36px;
@@ -180,7 +190,7 @@ p {
   cursor: pointer;
 }
 
-/* ================= VIDEO ================= */
+/* ========== VIDEO ========== */
 video {
   display: none;
   width: 80%;
@@ -190,7 +200,6 @@ video {
   box-shadow: 0 30px 70px rgba(0,0,0,0.85);
 }
 
-/* ================= ANIMAÇÃO ================= */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(40px); }
   to { opacity: 1; transform: translateY(0); }
@@ -200,93 +209,11 @@ video {
 
 <body>
 
-<audio id="musica" controls style="display:none">
-  <source src="amor.mp3" type="audio/mpeg">
-  Seu navegador não suporta áudio.
-</audio>
+<div class="pagina">
 
+  <h1 class="titulo">🎉 Feliz Aniversário ❤️</h1>
+  <p class="subtitulo">Esse presente é todo seu</p>
 
-<!-- PRESENTE -->
-<div class="presente-container" id="presente">
-  <div class="caixa">
-    <div class="tampa" id="tampa">
-      <div class="fita-v"></div>
-      <div class="fita-h"></div>
-    </div>
-    <div class="base"></div>
-  </div>
-  <div class="texto">Clique para abrir 🎁</div>
-</div>
+  <button class="botao-musica" onclick="ativarMusica()">🎵 Ativar música</button>
 
-<!-- CONTEÚDO -->
-<div class="conteudo" id="conteudo">
-  <h1>Eu te amo ❤️</h1>
-  <p>Você é a coisinha mais linda do mundo.</p>
-
-  <div class="carrossel-container">
-    <button class="seta esq" onclick="anterior()">‹</button>
-    <div class="carrossel" id="carrossel">
-      <img src="img1.JPG">
-      <img src="img2.JPG">
-      <img src="img3.JPG">
-      <img src="img4.JPG">
-      <img src="img5.JPG">
-    </div>
-    <button class="seta dir" onclick="proximo()">›</button>
-  </div>
-
-  <button class="botao" onclick="mostrarVideo()">Eu te amo ➜</button>
-
-  <video id="video" controls>
-    <source src="video.MOV">
-  </video>
-</div>
-
-<script>
-const presente = document.getElementById("presente");
-const tampa = document.getElementById("tampa");
-const conteudo = document.getElementById("conteudo");
-const musica = document.getElementById("musica");
-const carrossel = document.getElementById("carrossel");
-const imagens = carrossel.querySelectorAll("img");
-
-let indice = 0;
-
-function atualizarCarrossel() {
-  imagens.forEach(img => img.classList.remove("ativa"));
-  imagens[indice].classList.add("ativa");
-
-  const deslocamento = imagens[indice].offsetLeft - (carrossel.parentElement.offsetWidth / 2) + (imagens[indice].offsetWidth / 2);
-  carrossel.style.transform = `translateX(${-deslocamento}px)`;
-}
-
-function proximo() {
-  if (indice < imagens.length - 1) indice++;
-  atualizarCarrossel();
-}
-
-function anterior() {
-  if (indice > 0) indice--;
-  atualizarCarrossel();
-}
-
-presente.addEventListener("click", () => {
-  musica.play();
-  tampa.style.transform = "rotateX(-115deg)";
-
-  setTimeout(() => {
-    presente.style.display = "none";
-    conteudo.style.display = "block";
-    atualizarCarrossel();
-  }, 2800);
-});
-
-function mostrarVideo() {
-  const video = document.getElementById("video");
-  video.style.display = "block";
-  video.play();
-}
-</script>
-
-</body>
-</html>
+  <audio id="musica" loop>
